@@ -368,16 +368,60 @@ function initAnalyzer() {
   });
 }
 
-function analyzeText() {
+async function transliterateToHindi(text) {
+  try {
+    const url = `https://inputtools.google.com/request?text=${encodeURIComponent(text)}&itc=hi-t-i0-und&num=1&cp=0&cs=1&ie=utf-8&oe=utf-8&app=demopage`;
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data[0] === 'SUCCESS' && data[1] && data[1][0] && data[1][0][1]) {
+      return data[1][0][1][0];
+    }
+  } catch (error) {
+    console.error("Transliteration failed:", error);
+  }
+  return text;
+}
+
+async function analyzeText() {
   const inputNode = document.getElementById("sanskritInput");
   const messageNode = document.getElementById("analyzerMessage");
   const outputNode = document.getElementById("analysisOutput");
-  const input = (inputNode?.value || "").trim();
+  let input = (inputNode?.value || "").trim();
 
   if (!input) {
     messageNode.textContent = "Please enter Sanskrit text or a full shloka in Devanagari.";
     outputNode.classList.add("hidden");
     return;
+  }
+
+  if (/[a-zA-Z]/.test(input)) {
+    messageNode.textContent = "Translating English to Devanagari...";
+    const parts = input.split(/([|॥।\n\s]+)/);
+    const wordsToTranslate = [];
+    parts.forEach(part => {
+      if (/[a-zA-Z]/.test(part)) {
+        wordsToTranslate.push(part);
+      }
+    });
+
+    const transliteratedWordsMap = {};
+    for (let i = 0; i < wordsToTranslate.length; i += 10) {
+      const chunk = wordsToTranslate.slice(i, i + 10).join(" ");
+      const translatedChunk = await transliterateToHindi(chunk);
+      const translatedWords = translatedChunk.split(" ");
+      for (let j = 0; j < wordsToTranslate.slice(i, i + 10).length; j++) {
+        transliteratedWordsMap[wordsToTranslate[i + j]] = translatedWords[j] || wordsToTranslate[i + j];
+      }
+    }
+
+    input = parts.map(part => {
+      if (/[a-zA-Z]/.test(part)) {
+        return transliteratedWordsMap[part];
+      }
+      return part;
+    }).join("");
+
+    inputNode.value = input;
   }
 
   if (!/[\u0900-\u097F]/.test(input)) {
