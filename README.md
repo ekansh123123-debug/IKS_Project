@@ -55,3 +55,35 @@ To run this repository locally on your machine, follow these steps:
 1. **Clone the Repository:**
    ```bash
    git clone [https://github.com/ekansh123123-debug/IKS_Project.git](https://github.com/ekansh123123-debug/IKS_Project.git)
+   
+2.  **Open in Browser:**
+    Navigate to the project folder and simply open `index.html` in any modern web browser.
+    *   *Alternative:* Use a local server extension (like "Live Server" for VS Code) for a smoother development experience.
+
+---
+
+## ⚖️ Contributing
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make to the parsing algorithms or UI are **greatly appreciated**.
+
+1.  Fork the Project.
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the Branch (`git push origin feature/AmazingFeature`).
+5.  Open a Pull Request.
+
+---
+
+## 🎓 About IKS
+The **Indian Knowledge Systems (IKS)** initiative aims to integrate the profound wisdom of ancient Indian traditions with modern pedagogy. This project serves as a digital representation of these ancient scientific frameworks.
+
+---
+
+## 📄 License
+Distributed under the [MIT License](LICENSE). See `LICENSE` for more information.
+
+---
+
+## 📬 Contact
+**Project Maintainer:** [Ekansh](https://github.com/ekansh123123-debug)
+
+*Project Link: [https://ekansh123123-debug.github.io/IKS_Project/](https://ekansh123123-debug.github.io/IKS_Project/)*
